@@ -58,16 +58,24 @@
 		54722B0F25714B7E00CB8A1D /* AppStoreJSONAPIs */ = {
 			isa = PBXGroup;
 			children = (
+				54722B26257158E000CB8A1D /* Controller */,
 				54722B1025714B7E00CB8A1D /* AppDelegate.swift */,
 				54722B1225714B7E00CB8A1D /* SceneDelegate.swift */,
 				54722B1425714B7E00CB8A1D /* ViewController.swift */,
-				54722B2425714C2600CB8A1D /* BaseTabBarViewController.swift */,
 				54722B1625714B7E00CB8A1D /* Main.storyboard */,
 				54722B1925714B8000CB8A1D /* Assets.xcassets */,
 				54722B1B25714B8000CB8A1D /* LaunchScreen.storyboard */,
 				54722B1E25714B8000CB8A1D /* Info.plist */,
 			);
 			path = AppStoreJSONAPIs;
+			sourceTree = "<group>";
+		};
+		54722B26257158E000CB8A1D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				54722B2425714C2600CB8A1D /* BaseTabBarViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
