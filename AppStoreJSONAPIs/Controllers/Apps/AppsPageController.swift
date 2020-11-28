@@ -19,6 +19,18 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
     collectionView.backgroundColor = .white
     collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
     collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+    
+    fetchData()
+  }
+  
+  fileprivate func fetchData() {
+    Service.shared.fetchGames { (appGroup, error) in
+      if let error = error {
+        print("Failed to fetch games:", error)
+        return
+      }
+      print(appGroup?.feed.results)
+    }
   }
   
   // MARK: - UICollectionViewDataSource Methods
