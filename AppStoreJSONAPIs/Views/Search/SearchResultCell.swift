@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 
 class SearchResultCell: UICollectionViewCell {
+  // MARK: - View Properties
   var appResult: Result! {
     didSet {
       nameLabel.text = appResult.trackName
@@ -72,7 +73,8 @@ class SearchResultCell: UICollectionViewCell {
   lazy var screenshot1ImageView = self.createScreenshotImageView()
   lazy var screenshot2ImageView = self.createScreenshotImageView()
   lazy var screenshot3ImageView = self.createScreenshotImageView()
-  
+    
+  // MARK: - Helper Methods
   func createScreenshotImageView() -> UIImageView {
     let imageView = UIImageView()    
     imageView.layer.cornerRadius = 8
@@ -83,6 +85,7 @@ class SearchResultCell: UICollectionViewCell {
     return imageView
   }
   
+  // MARK: - View Lifecycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     

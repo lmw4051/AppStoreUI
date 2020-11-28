@@ -8,7 +8,8 @@
 
 import UIKit
 
-class AppsSearchController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+  // MARK: - Properties
   fileprivate let cellId = "SearchCell"
   fileprivate var appResults = [Result]()
   
@@ -23,6 +24,7 @@ class AppsSearchController: UICollectionViewController, UICollectionViewDelegate
     return label
   }()
   
+  // MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -36,6 +38,7 @@ class AppsSearchController: UICollectionViewController, UICollectionViewDelegate
 //    fetchITunesApps()
   }
   
+  // MARK: - Search
   fileprivate func setupSearchBar() {
     navigationItem.searchController = self.searchController
     searchController.searchBar.delegate = self
@@ -70,6 +73,7 @@ class AppsSearchController: UICollectionViewController, UICollectionViewDelegate
     }
   }
   
+  // MARK: - UICollectioView DataSource Methods
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return .init(width: view.frame.width, height: 300)
   }
@@ -83,13 +87,5 @@ class AppsSearchController: UICollectionViewController, UICollectionViewDelegate
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SearchResultCell    
     cell.appResult = appResults[indexPath.item]
     return cell
-  }
-  
-  init() {
-    super.init(collectionViewLayout: UICollectionViewFlowLayout())
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
 }
