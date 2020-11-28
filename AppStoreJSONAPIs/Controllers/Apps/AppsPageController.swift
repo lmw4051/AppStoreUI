@@ -96,10 +96,6 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
     header.appHeaderHorizontalController.collectionView.reloadData()
     return header
   }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return .init(width: view.frame.width, height: 300)
-  }
     
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return groups.count
@@ -116,6 +112,7 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
     cell.horizontalController.didSelectHandler = { [weak self] feedResult in
       
       let controller = AppDetailController()
+      controller.appId = feedResult.id
       controller.view.backgroundColor = .white
       controller.navigationItem.title = feedResult.name
       self?.navigationController?.pushViewController(controller, animated: true)
@@ -131,5 +128,9 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return .init(top: 16, left: 0, bottom: 0, right: 0)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return .init(width: view.frame.width, height: 300)
   }
 }
