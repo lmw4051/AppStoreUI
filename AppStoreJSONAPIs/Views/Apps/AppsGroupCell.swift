@@ -14,7 +14,7 @@ class AppsGroupCell: UICollectionViewCell {
   
   let horizontalController = AppsHorizontalController()
   
-  // MARK: - View Lifecycle
+  // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     

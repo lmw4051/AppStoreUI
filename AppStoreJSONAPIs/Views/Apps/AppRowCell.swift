@@ -16,7 +16,7 @@ class AppRowCell: UICollectionViewCell {
   let companyLabel = UILabel(text: "Company Nae", font: .systemFont(ofSize: 13))
     
   let getButton = UIButton(title: "GET")
-  // MARK: - View Lifecycle
+  // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)        
     

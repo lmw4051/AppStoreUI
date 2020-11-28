@@ -24,7 +24,7 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
     return label
   }()
   
-  // MARK: - View Lifecycle
+  // MARK: - View Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     
