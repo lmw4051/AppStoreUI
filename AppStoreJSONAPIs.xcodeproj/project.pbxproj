@@ -38,6 +38,9 @@
 		54722B5E2572947500CB8A1D /* PreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B5D2572947500CB8A1D /* PreviewCell.swift */; };
 		54722B60257295D400CB8A1D /* PreviewScreenshotsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B5F257295D400CB8A1D /* PreviewScreenshotsController.swift */; };
 		54722B62257296C100CB8A1D /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B61257296C100CB8A1D /* ScreenshotCell.swift */; };
+		54722B6425729B1700CB8A1D /* ReviewRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6325729B1700CB8A1D /* ReviewRowCell.swift */; };
+		54722B6625729C7800CB8A1D /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6525729C7700CB8A1D /* ReviewsController.swift */; };
+		54722B6825729EBC00CB8A1D /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6725729EBC00CB8A1D /* ReviewCell.swift */; };
 		E48FD38938F3847A100D1E5D /* Pods_AppStoreJSONAPIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +79,9 @@
 		54722B5D2572947500CB8A1D /* PreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCell.swift; sourceTree = "<group>"; };
 		54722B5F257295D400CB8A1D /* PreviewScreenshotsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotsController.swift; sourceTree = "<group>"; };
 		54722B61257296C100CB8A1D /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
+		54722B6325729B1700CB8A1D /* ReviewRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRowCell.swift; sourceTree = "<group>"; };
+		54722B6525729C7700CB8A1D /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
+		54722B6725729EBC00CB8A1D /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		7B5CF47ED46F46EE66256C25 /* Pods-AppStoreJSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONAPIs/Pods-AppStoreJSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 		EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONAPIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -223,6 +229,7 @@
 			children = (
 				54722B58257282AE00CB8A1D /* AppDetailController.swift */,
 				54722B5F257295D400CB8A1D /* PreviewScreenshotsController.swift */,
+				54722B6525729C7700CB8A1D /* ReviewsController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -233,6 +240,8 @@
 				54722B5B2572878400CB8A1D /* AppDetailCell.swift */,
 				54722B5D2572947500CB8A1D /* PreviewCell.swift */,
 				54722B61257296C100CB8A1D /* ScreenshotCell.swift */,
+				54722B6325729B1700CB8A1D /* ReviewRowCell.swift */,
+				54722B6725729EBC00CB8A1D /* ReviewCell.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -374,9 +383,11 @@
 				54722B3925722A5C00CB8A1D /* AppsPageController.swift in Sources */,
 				54722B332572040100CB8A1D /* SearchResult.swift in Sources */,
 				54722B60257295D400CB8A1D /* PreviewScreenshotsController.swift in Sources */,
+				54722B6425729B1700CB8A1D /* ReviewRowCell.swift in Sources */,
 				54722B1125714B7E00CB8A1D /* AppDelegate.swift in Sources */,
 				54722B1325714B7E00CB8A1D /* SceneDelegate.swift in Sources */,
 				54722B282571592E00CB8A1D /* AppsSearchController.swift in Sources */,
+				54722B6625729C7800CB8A1D /* ReviewsController.swift in Sources */,
 				54722B4025722E6C00CB8A1D /* AppsGroupCell.swift in Sources */,
 				54722B2B25715CD400CB8A1D /* SearchResultCell.swift in Sources */,
 				54722B54257272E200CB8A1D /* HorizontalSnappingController.swift in Sources */,
@@ -389,6 +400,7 @@
 				54722B4A25723ED900CB8A1D /* AppsPageHeader.swift in Sources */,
 				54722B2E2571620F00CB8A1D /* UIView+Layout.swift in Sources */,
 				54722B48257238A900CB8A1D /* Extensions.swift in Sources */,
+				54722B6825729EBC00CB8A1D /* ReviewCell.swift in Sources */,
 				54722B3B25722B8600CB8A1D /* BaseListController.swift in Sources */,
 				54722B502572594600CB8A1D /* AppGroup.swift in Sources */,
 				54722B5C2572878400CB8A1D /* AppDetailCell.swift in Sources */,
