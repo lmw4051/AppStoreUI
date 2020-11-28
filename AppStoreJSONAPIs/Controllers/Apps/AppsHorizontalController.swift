@@ -17,8 +17,8 @@ class AppsHorizontalController: BaseListController, UICollectionViewDelegateFlow
   // MARK: - View Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    collectionView.backgroundColor = .blue
-    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+    collectionView.backgroundColor = .white
+    collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: cellId)
     
     if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
       layout.scrollDirection = .horizontal
@@ -31,8 +31,7 @@ class AppsHorizontalController: BaseListController, UICollectionViewDelegateFlow
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-    cell.backgroundColor = .red
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)    
     return cell
   }
   
