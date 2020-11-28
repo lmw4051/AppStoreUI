@@ -49,6 +49,11 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
     timer?.invalidate()
     timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
       Service.shared.fetchApps(searchTerm: searchText) { (response, error) in
+        if let error = error {
+          print("Failed to fetch apps:", error)
+          return
+        }
+        
         self.appResults = response?.results ?? []
         
         DispatchQueue.main.async {
@@ -73,11 +78,7 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
     }
   }
   
-  // MARK: - UICollectioView DataSource Methods
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return .init(width: view.frame.width, height: 300)
-  }
-  
+  // MARK: - UICollectioViewDataSource Methods
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     enterSearchTermLabel.isHidden = appResults.count != 0
     return appResults.count
@@ -87,5 +88,17 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SearchResultCell    
     cell.appResult = appResults[indexPath.item]
     return cell
+  }
+  
+  // MARK: - UICollectioViewDelegate Methods
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let appId = String(appResults[indexPath.item].trackId)
+    let appDetailController = AppDetailController(appId: appId)
+    navigationController?.pushViewController(appDetailController, animated: true)
+  }
+  
+  // MARK: - UICollectionViewDelegateFlowLayout Methods
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return .init(width: view.frame.width, height: 300)
   }
 }
