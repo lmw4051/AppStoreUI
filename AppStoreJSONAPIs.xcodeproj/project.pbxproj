@@ -30,6 +30,7 @@
 		54722B4C2572533000CB8A1D /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B4B2572533000CB8A1D /* AppsHeaderHorizontalController.swift */; };
 		54722B4E257254A600CB8A1D /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B4D257254A600CB8A1D /* AppsHeaderCell.swift */; };
 		54722B502572594600CB8A1D /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B4F2572594600CB8A1D /* AppGroup.swift */; };
+		54722B522572686C00CB8A1D /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B512572686C00CB8A1D /* SocialApp.swift */; };
 		E48FD38938F3847A100D1E5D /* Pods_AppStoreJSONAPIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		54722B4B2572533000CB8A1D /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		54722B4D257254A600CB8A1D /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
 		54722B4F2572594600CB8A1D /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		54722B512572686C00CB8A1D /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
 		7B5CF47ED46F46EE66256C25 /* Pods-AppStoreJSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONAPIs/Pods-AppStoreJSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 		EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONAPIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 			children = (
 				54722B322572040100CB8A1D /* SearchResult.swift */,
 				54722B4F2572594600CB8A1D /* AppGroup.swift */,
+				54722B512572686C00CB8A1D /* SocialApp.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54722B1525714B7E00CB8A1D /* ViewController.swift in Sources */,
+				54722B522572686C00CB8A1D /* SocialApp.swift in Sources */,
 				54722B3925722A5C00CB8A1D /* AppsPageController.swift in Sources */,
 				54722B332572040100CB8A1D /* SearchResult.swift in Sources */,
 				54722B1125714B7E00CB8A1D /* AppDelegate.swift in Sources */,

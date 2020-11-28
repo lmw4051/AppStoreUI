@@ -35,7 +35,6 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
     enterSearchTermLabel.fillSuperview(padding: .init(top: 100, left: 50, bottom: 0, right: 50))
     
     setupSearchBar()
-//    fetchITunesApps()
   }
   
   // MARK: - Search
@@ -49,8 +48,9 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
             
     timer?.invalidate()
     timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-      Service.shared.fetchApps(searchTerm: searchText) { (result, error) in
-        self.appResults = result
+      Service.shared.fetchApps(searchTerm: searchText) { (response, error) in
+        self.appResults = response?.results ?? []
+        
         DispatchQueue.main.async {
           self.collectionView.reloadData()
         }
@@ -59,13 +59,13 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
   }
   
   fileprivate func fetchITunesApps() {
-    Service.shared.fetchApps(searchTerm: "instagram") { (results, error) in
+    Service.shared.fetchApps(searchTerm: "instagram") { (response, error) in
       if let error = error {
         print("Failed to fetch apps:", error)
         return
       }
       
-      self.appResults = results
+      self.appResults = response?.results ?? []
       
       DispatchQueue.main.async {
         self.collectionView.reloadData()
