@@ -50,6 +50,8 @@
 		54722B79257375AD00CB8A1D /* TodayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B78257375AD00CB8A1D /* TodayItem.swift */; };
 		54722B7B2573964D00CB8A1D /* TodayMultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B7A2573964D00CB8A1D /* TodayMultipleAppCell.swift */; };
 		54722B7D25739E9300CB8A1D /* BaseTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B7C25739E9300CB8A1D /* BaseTodayCell.swift */; };
+		54722B7F2573A94200CB8A1D /* TodayMultipleAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B7E2573A94200CB8A1D /* TodayMultipleAppsController.swift */; };
+		54722B812573A99200CB8A1D /* MultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B802573A99200CB8A1D /* MultipleAppCell.swift */; };
 		E48FD38938F3847A100D1E5D /* Pods_AppStoreJSONAPIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,8 @@
 		54722B78257375AD00CB8A1D /* TodayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayItem.swift; sourceTree = "<group>"; };
 		54722B7A2573964D00CB8A1D /* TodayMultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppCell.swift; sourceTree = "<group>"; };
 		54722B7C25739E9300CB8A1D /* BaseTodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayCell.swift; sourceTree = "<group>"; };
+		54722B7E2573A94200CB8A1D /* TodayMultipleAppsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppsController.swift; sourceTree = "<group>"; };
+		54722B802573A99200CB8A1D /* MultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAppCell.swift; sourceTree = "<group>"; };
 		7B5CF47ED46F46EE66256C25 /* Pods-AppStoreJSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONAPIs/Pods-AppStoreJSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 		EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONAPIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -273,6 +277,7 @@
 			children = (
 				54722B6C257339A400CB8A1D /* TodayController.swift */,
 				54722B72257347DB00CB8A1D /* AppFullScreenController.swift */,
+				54722B7E2573A94200CB8A1D /* TodayMultipleAppsController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 				54722B762573592400CB8A1D /* AppFullScreenHeaderCell.swift */,
 				54722B7A2573964D00CB8A1D /* TodayMultipleAppCell.swift */,
 				54722B7C25739E9300CB8A1D /* BaseTodayCell.swift */,
+				54722B802573A99200CB8A1D /* MultipleAppCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -447,6 +453,7 @@
 				54722B4C2572533000CB8A1D /* AppsHeaderHorizontalController.swift in Sources */,
 				54722B4A25723ED900CB8A1D /* AppsPageHeader.swift in Sources */,
 				54722B2E2571620F00CB8A1D /* UIView+Layout.swift in Sources */,
+				54722B7F2573A94200CB8A1D /* TodayMultipleAppsController.swift in Sources */,
 				54722B7D25739E9300CB8A1D /* BaseTodayCell.swift in Sources */,
 				54722B48257238A900CB8A1D /* Extensions.swift in Sources */,
 				54722B6825729EBC00CB8A1D /* ReviewCell.swift in Sources */,
@@ -461,6 +468,7 @@
 				54722B46257237F400CB8A1D /* AppRowCell.swift in Sources */,
 				54722B7B2573964D00CB8A1D /* TodayMultipleAppCell.swift in Sources */,
 				54722B73257347DB00CB8A1D /* AppFullScreenController.swift in Sources */,
+				54722B812573A99200CB8A1D /* MultipleAppCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

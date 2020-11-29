@@ -20,16 +20,14 @@ class TodayMultipleAppCell: BaseTodayCell {
   let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
   let titleLabel = UILabel(text: "Utilizing your time", font: .boldSystemFont(ofSize: 32), numberOfLines: 2)
   
-  let multipleAppsController = UIViewController()
+  let multipleAppsController = TodayMultipleAppsController()
   
   // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     
     backgroundColor = .white
-    layer.cornerRadius = 16
-    
-    multipleAppsController.view.backgroundColor = .red
+    layer.cornerRadius = 16        
     
     let stackView = VerticalStackView(arrangedSubviews: [
       categoryLabel, titleLabel, multipleAppsController.view
