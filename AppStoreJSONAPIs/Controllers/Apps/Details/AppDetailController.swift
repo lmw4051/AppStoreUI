@@ -96,6 +96,7 @@ class AppDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     var height: CGFloat = 280
     
     if indexPath.item == 0 {
+      // Calculate the necessary size for our cell
       let dummyCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
       dummyCell.app = app
       dummyCell.layoutIfNeeded()

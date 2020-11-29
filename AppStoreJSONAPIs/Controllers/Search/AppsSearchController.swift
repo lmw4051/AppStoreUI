@@ -46,6 +46,8 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     print(searchText)
             
+    // Introduce some delay before performing the search
+    // Throttling the search
     timer?.invalidate()
     timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
       Service.shared.fetchApps(searchTerm: searchText) { (response, error) in

@@ -11,6 +11,7 @@ import UIKit
 class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   // MARK: - Instance Properties
   fileprivate let cellId = "CellId"
+  var startingFrame: CGRect?
   
   // MARK: - View Life Cycle
   override func viewDidLoad() {
@@ -32,7 +33,22 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   
   // MARK: - UICollectioViewDelegate Methods
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print("animte full screen")
+    let redView = UIView()
+    redView.backgroundColor = .red
+    redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+    view.addSubview(redView)
+        
+    guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+    
+    // Absolute Coordinates of Cell
+    guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
+    self.startingFrame = startingFrame
+    redView.frame = startingFrame
+    redView.layer.cornerRadius = 16
+    
+    UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+      redView.frame = self.view.frame
+    }, completion: nil)
   }
   
   // MARK: - UICollectionViewDelegateFlowLayout Methods
@@ -46,5 +62,15 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     return .init(top: 32, left: 0, bottom: 32, right: 0)
+  }
+  
+  // MARK: - Selector Methods
+  @objc func handleRemoveRedView(gesture: UITapGestureRecognizer) {
+    // Access startingFrame
+    UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+      gesture.view?.frame = self.startingFrame ?? .zero
+    }, completion: { _ in
+      gesture.view?.removeFromSuperview()
+    })
   }
 }
