@@ -18,22 +18,64 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   var widthConstraint: NSLayoutConstraint?
   var heightConstraint: NSLayoutConstraint?
   
-  let items = [
-    TodayItem.init(category: "LIFE HACK", title: "Utilizing your time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single),
-    TodayItem.init(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
-    TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single),
-    TodayItem.init(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
-  ]
+  var items = [TodayItem]()
+  
+  let activityIndicatorView: UIActivityIndicatorView = {
+      let aiv = UIActivityIndicatorView(style: .whiteLarge)
+      aiv.color = .darkGray
+      aiv.startAnimating()
+      aiv.hidesWhenStopped = true
+      return aiv
+  }()
   
   static let cellSize: CGFloat = 500
   
   // MARK: - View Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.addSubview(activityIndicatorView)
+    activityIndicatorView.centerInSuperview()
+    
+    fetchData()
+    
     navigationController?.isNavigationBarHidden = true
     collectionView.backgroundColor = #colorLiteral(red: 0.948936522, green: 0.9490727782, blue: 0.9489068389, alpha: 1)
     collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
     collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
+  }
+  
+  fileprivate func fetchData() {
+    let dispatchGroup = DispatchGroup()
+        
+    var topGrossingGroup: AppGroup?
+    var gamesGroup: AppGroup?
+    
+    dispatchGroup.enter()
+    Service.shared.fetchTopGrossing { (appGroup, error) in
+      topGrossingGroup = appGroup
+      dispatchGroup.leave()
+    }
+    
+    dispatchGroup.enter()
+    Service.shared.fetchGames { (appGroup, error) in
+      gamesGroup = appGroup
+      dispatchGroup.leave()
+    }
+    
+    dispatchGroup.notify(queue: .main) {
+      print("Finished fetching")
+      self.activityIndicatorView.stopAnimating()
+      
+      self.items = [
+          TodayItem.init(category: "Daily List", title: topGrossingGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: topGrossingGroup?.feed.results ?? []),
+          
+          TodayItem.init(category: "Daily List", title: gamesGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: gamesGroup?.feed.results ?? []),
+          
+          TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single, apps: []),
+      ]
+      
+      self.collectionView.reloadData()
+    }
   }
   
   // MARK: - UICollectioViewDataSource Methods
@@ -44,7 +86,7 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cellId = items[indexPath.item].cellType.rawValue
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
-    cell.todayItem = items[indexPath.item]    
+    cell.todayItem = items[indexPath.item]
     return cell
   }
   
