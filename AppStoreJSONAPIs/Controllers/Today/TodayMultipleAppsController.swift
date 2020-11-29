@@ -12,7 +12,7 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
   // MARK: - Instance Properties
   let cellId = "CellId"
   
-  var results = [FeedResult]()
+  var apps = [FeedResult]()
   
   fileprivate let spacing: CGFloat = 16
   
@@ -21,6 +21,19 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
   }
   
   fileprivate let mode: Mode
+  
+  let closeButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
+    button.tintColor = .darkGray
+    button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+    return button
+  }()
+  
+  // MARK: - Selector Methods
+  @objc func handleDismiss() {
+    dismiss(animated: true)
+  }
   
   // MARK: - View Life Cycle
   init(mode: Mode) {
@@ -37,26 +50,45 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
     collectionView.backgroundColor = .white
     
     if mode == .fullScreen {
-      
+      setupCloseButton()
     } else {
       collectionView.isScrollEnabled = false
     }
-        
+    
     collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: cellId)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.isNavigationBarHidden = true
+  }
+  
+  // MARK: - Helper Methods
+  func setupCloseButton() {
+    view.addSubview(closeButton)
+    closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 16), size: .init(width: 44, height: 44))
   }
   
   // MARK: - UICollectioViewDataSource Methods
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if mode == .fullScreen {
-      return results.count
+      return apps.count
     }
-    return min(4, results.count)
+    return min(4, apps.count)
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MultipleAppCell
-    cell.app = self.results[indexPath.item]
+    cell.app = self.apps[indexPath.item]
     return cell
+  }
+  
+  // MARK: - UICollectioViewDelegate Methods
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let appId = self.apps[indexPath.item].id
+    let appDetailController = AppDetailController(appId: appId)
+//    navigationController?.isNavigationBarHidden = false
+    navigationController?.pushViewController(appDetailController, animated: true)
   }
   
   // MARK: - UICollectionViewDelegateFlowLayout Methods
@@ -76,7 +108,7 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
     if mode == .fullScreen {
-      return .init(top: 12, left: 24, bottom: 12, right: 24)
+      return .init(top: 48, left: 24, bottom: 12, right: 24)
     }
     return .zero
   }

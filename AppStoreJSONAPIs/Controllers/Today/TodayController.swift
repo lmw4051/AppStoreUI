@@ -44,6 +44,7 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
   }
   
+  // MARK: - Service Methods
   fileprivate func fetchData() {
     let dispatchGroup = DispatchGroup()
     
@@ -79,35 +80,23 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     }
   }
   
-  // MARK: - UICollectioViewDataSource Methods
-  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return items.count
+  // MARK: - Helper Methods
+  fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
+    let fullController = TodayMultipleAppsController(mode: .fullScreen)
+    fullController.apps = self.items[indexPath.item].apps
+//    present(UINavigationController(rootViewController: fullController), animated: true)
+    present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
+    return
   }
   
-  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cellId = items[indexPath.item].cellType.rawValue
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
-    cell.todayItem = items[indexPath.item]
-    return cell
-  }
-  
-  // MARK: - UICollectioViewDelegate Methods
-  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-    if items[indexPath.item].cellType == .multiple {
-      let fullController = TodayMultipleAppsController(mode: .fullScreen)
-      fullController.results = self.items[indexPath.item].apps      
-      present(fullController, animated: true)
-      return
-    }
-    
+  func showSingleAppFullscreen(_ indexPath: IndexPath) {
     let appFullScreenController = AppFullScreenController()
     appFullScreenController.todayItem = items[indexPath.item]
     appFullScreenController.dismissHandler = {
       self.handleRemoveFullScreenView()
     }
     
-    let fullScreenView = appFullScreenController.view!    
+    let fullScreenView = appFullScreenController.view!
     view.addSubview(fullScreenView)
     
     // This will let tableView of AppFullScreenController render itself
@@ -157,6 +146,30 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     }, completion: nil)
   }
   
+  // MARK: - UICollectioViewDataSource Methods
+  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return items.count
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cellId = items[indexPath.item].cellType.rawValue
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
+    cell.todayItem = items[indexPath.item]
+    
+    (cell as? TodayMultipleAppCell)?.multipleAppsController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppsTap)))
+    return cell
+  }
+  
+  // MARK: - UICollectioViewDelegate Methods
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    switch items[indexPath.item].cellType {
+    case .multiple:
+      showDailyListFullScreen(indexPath)
+    default:
+      showSingleAppFullscreen(indexPath)
+    }
+  }
+  
   // MARK: - UICollectionViewDelegateFlowLayout Methods
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return .init(width: view.frame.width - 64, height: TodayController.cellSize)
@@ -171,6 +184,29 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   }
   
   // MARK: - Selector Methods
+  @objc fileprivate func handleMultipleAppsTap(gesture: UITapGestureRecognizer) {
+    let collectionView = gesture.view
+    
+    var superView = collectionView?.superview
+    
+    // Figure out which cell where clicking into
+    while superView != nil {
+      if let cell = superView as? TodayMultipleAppCell {
+        guard let indexPath = self.collectionView.indexPath(for: cell) else {
+          return
+        }
+        
+        let apps = self.items[indexPath.item].apps
+        let fullController = TodayMultipleAppsController(mode: .fullScreen)
+        fullController.apps = apps        
+        present(fullController, animated: true)
+        return
+      }
+      
+      superView = superView?.superview
+    }
+  }
+  
   @objc func handleRemoveFullScreenView() {
     // Access startingFrame
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
