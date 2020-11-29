@@ -9,7 +9,7 @@
 import UIKit
 
 class AppsHorizontalController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
-  // MARK: - Properties
+  // MARK: - Instance Properties
   let cellId = "HorizontalCell"
   let topBottomPadding: CGFloat = 12
   let lineSpacing: CGFloat = 10

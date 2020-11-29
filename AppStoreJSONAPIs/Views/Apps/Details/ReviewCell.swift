@@ -9,6 +9,7 @@
 import UIKit
 
 class ReviewCell: UICollectionViewCell {
+  // MARK: - Instance Properties
   let titleLabel = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 18))
   
   let authorLabel = UILabel(text: "Author", font: .systemFont(ofSize: 16))
@@ -33,6 +34,7 @@ class ReviewCell: UICollectionViewCell {
   
   let bodyLabel = UILabel(text: "Review body\nReview body\nReview body\n", font: .systemFont(ofSize: 18), numberOfLines: 5)
   
+  // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = #colorLiteral(red: 0.9423103929, green: 0.9410001636, blue: 0.9745038152, alpha: 1)
@@ -51,8 +53,7 @@ class ReviewCell: UICollectionViewCell {
     authorLabel.textAlignment = .right
     
     addSubview(stackView)
-    stackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20))
-    
+    stackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20))    
   }
   
   required init?(coder: NSCoder) {

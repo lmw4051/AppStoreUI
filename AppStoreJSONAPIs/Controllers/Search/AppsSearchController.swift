@@ -9,7 +9,7 @@
 import UIKit
 
 class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
-  // MARK: - Properties
+  // MARK: - Instance Properties
   fileprivate let cellId = "SearchCell"
   fileprivate var appResults = [Result]()
   

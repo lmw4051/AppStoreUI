@@ -9,10 +9,11 @@
 import UIKit
 
 class ReviewRowCell: UICollectionViewCell {
-  
+  // MARK: - Instance Properties
   let reviewsRatingsLabel = UILabel(text: "Reviews & Ratings", font: .boldSystemFont(ofSize: 20))
   let reviewsController = ReviewsController()
   
+  // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)
     

@@ -9,6 +9,7 @@
 import UIKit
 
 class AppsHeaderHorizontalController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
+  // MARK: - Instance Properties
   let cellId = "CellId"
   var socialApps = [SocialApp]()
   

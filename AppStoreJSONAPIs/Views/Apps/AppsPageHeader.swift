@@ -9,7 +9,7 @@
 import UIKit
 
 class AppsPageHeader: UICollectionReusableView {
-  
+  // MARK: - Instance Properties
   let appHeaderHorizontalController = AppsHeaderHorizontalController()
   
   // MARK: - View Life Cycle

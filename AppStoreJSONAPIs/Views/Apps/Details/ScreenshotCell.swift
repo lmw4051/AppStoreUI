@@ -9,9 +9,10 @@
 import UIKit
 
 class ScreenshotCell: UICollectionViewCell {
-  
+  // MARK: - Instance Properties
   let imageView = UIImageView(cornerRadius: 12)
   
+  // MARK: - View Life Cycle
   override init(frame: CGRect) {
     super.init(frame: frame)    
     addSubview(imageView)

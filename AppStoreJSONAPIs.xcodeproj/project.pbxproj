@@ -42,6 +42,8 @@
 		54722B6625729C7800CB8A1D /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6525729C7700CB8A1D /* ReviewsController.swift */; };
 		54722B6825729EBC00CB8A1D /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6725729EBC00CB8A1D /* ReviewCell.swift */; };
 		54722B6A2572AA9E00CB8A1D /* Reviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B692572AA9E00CB8A1D /* Reviews.swift */; };
+		54722B6D257339A400CB8A1D /* TodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6C257339A400CB8A1D /* TodayController.swift */; };
+		54722B7025733A1900CB8A1D /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54722B6F25733A1900CB8A1D /* TodayCell.swift */; };
 		E48FD38938F3847A100D1E5D /* Pods_AppStoreJSONAPIs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,8 @@
 		54722B6525729C7700CB8A1D /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
 		54722B6725729EBC00CB8A1D /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		54722B692572AA9E00CB8A1D /* Reviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reviews.swift; sourceTree = "<group>"; };
+		54722B6C257339A400CB8A1D /* TodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayController.swift; sourceTree = "<group>"; };
+		54722B6F25733A1900CB8A1D /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		7B5CF47ED46F46EE66256C25 /* Pods-AppStoreJSONAPIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreJSONAPIs.release.xcconfig"; path = "Target Support Files/Pods-AppStoreJSONAPIs/Pods-AppStoreJSONAPIs.release.xcconfig"; sourceTree = "<group>"; };
 		EE9E71504E98C2D092428E20 /* Pods_AppStoreJSONAPIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStoreJSONAPIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +144,7 @@
 		54722B26257158E000CB8A1D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				54722B6B2573399A00CB8A1D /* Today */,
 				54722B3C25722C0E00CB8A1D /* Search */,
 				54722B3725722A4A00CB8A1D /* Apps */,
 				54722B2425714C2600CB8A1D /* BaseTabBarViewController.swift */,
@@ -152,6 +157,7 @@
 		54722B2925715CC000CB8A1D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54722B6E25733A0F00CB8A1D /* Today */,
 				54722B3E25722E5E00CB8A1D /* Search */,
 				54722B3D25722E5A00CB8A1D /* Apps */,
 			);
@@ -247,6 +253,22 @@
 				54722B6725729EBC00CB8A1D /* ReviewCell.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		54722B6B2573399A00CB8A1D /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				54722B6C257339A400CB8A1D /* TodayController.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		54722B6E25733A0F00CB8A1D /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				54722B6F25733A1900CB8A1D /* TodayCell.swift */,
+			);
+			path = Today;
 			sourceTree = "<group>";
 		};
 		7F2B2A5512B54255330EF1D6 /* Frameworks */ = {
@@ -386,6 +408,7 @@
 				54722B3925722A5C00CB8A1D /* AppsPageController.swift in Sources */,
 				54722B332572040100CB8A1D /* SearchResult.swift in Sources */,
 				54722B60257295D400CB8A1D /* PreviewScreenshotsController.swift in Sources */,
+				54722B6D257339A400CB8A1D /* TodayController.swift in Sources */,
 				54722B6425729B1700CB8A1D /* ReviewRowCell.swift in Sources */,
 				54722B1125714B7E00CB8A1D /* AppDelegate.swift in Sources */,
 				54722B1325714B7E00CB8A1D /* SceneDelegate.swift in Sources */,
@@ -407,6 +430,7 @@
 				54722B6825729EBC00CB8A1D /* ReviewCell.swift in Sources */,
 				54722B3B25722B8600CB8A1D /* BaseListController.swift in Sources */,
 				54722B502572594600CB8A1D /* AppGroup.swift in Sources */,
+				54722B7025733A1900CB8A1D /* TodayCell.swift in Sources */,
 				54722B5C2572878400CB8A1D /* AppDetailCell.swift in Sources */,
 				54722B4E257254A600CB8A1D /* AppsHeaderCell.swift in Sources */,
 				54722B5E2572947500CB8A1D /* PreviewCell.swift in Sources */,

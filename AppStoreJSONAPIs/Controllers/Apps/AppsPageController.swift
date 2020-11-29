@@ -9,7 +9,7 @@
 import UIKit
 
 class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout {
-  // MARK: - Properties
+  // MARK: - Instance Properties
   let cellId = "AppsCell"
   let headerId = "HeaderId"
   

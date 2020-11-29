@@ -9,6 +9,7 @@
 import UIKit
 
 class HorizontalSnappingController: UICollectionViewController {
+  // MARK: - View Life Cycle
   init() {
     let layout = BetterSnappingLayout()
     layout.scrollDirection = .horizontal
