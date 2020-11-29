@@ -10,7 +10,6 @@ import UIKit
 
 class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   // MARK: - Instance Properties
-  fileprivate let cellId = "CellId"
   var startingFrame: CGRect?
   var appFullScreenController: AppFullScreenController!
   
@@ -19,21 +18,33 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   var widthConstraint: NSLayoutConstraint?
   var heightConstraint: NSLayoutConstraint?
   
+  let items = [
+    TodayItem.init(category: "LIFE HACK", title: "Utilizing your time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single),
+    TodayItem.init(category: "SECOND CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
+    TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single),
+    TodayItem.init(category: "MULTIPLE CELL", title: "Test-Drive These CarPlay Apps", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple),
+  ]
+  
+  static let cellSize: CGFloat = 500
+  
   // MARK: - View Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.isNavigationBarHidden = true
     collectionView.backgroundColor = #colorLiteral(red: 0.948936522, green: 0.9490727782, blue: 0.9489068389, alpha: 1)
-    collectionView.register(TodayCell.self, forCellWithReuseIdentifier: cellId)
+    collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+    collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
   }
   
   // MARK: - UICollectioViewDataSource Methods
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return items.count
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TodayCell
+    let cellId = items[indexPath.item].cellType.rawValue
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
+    cell.todayItem = items[indexPath.item]    
     return cell
   }
   
@@ -41,20 +52,21 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
     let appFullScreenController = AppFullScreenController()
-    
+    appFullScreenController.todayItem = items[indexPath.item]
     appFullScreenController.dismissHandler = {
-      self.handleRemoveAFSCView()
+      self.handleRemoveFullScreenView()
     }
     
-    let aFSCView = appFullScreenController.view!
-    aFSCView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveAFSCView)))
-    view.addSubview(aFSCView)
-        
+    let fullScreenView = appFullScreenController.view!    
+    view.addSubview(fullScreenView)
+    
     // This will let tableView of AppFullScreenController render itself
     // in order to show Header
     addChild(appFullScreenController)
     
     self.appFullScreenController = appFullScreenController
+    
+    self.collectionView.isUserInteractionEnabled = false
     
     guard let cell = collectionView.cellForItem(at: indexPath) else { return }
     
@@ -63,17 +75,17 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     self.startingFrame = startingFrame
     
     // AutoLayout Constraint Animations
-    aFSCView.translatesAutoresizingMaskIntoConstraints = false
-    topConstraint = aFSCView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
-    leadingConstraint = aFSCView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
-    widthConstraint = aFSCView.widthAnchor.constraint(equalToConstant: startingFrame.width)
-    heightConstraint = aFSCView.heightAnchor.constraint(equalToConstant: startingFrame.height)
+    fullScreenView.translatesAutoresizingMaskIntoConstraints = false
+    topConstraint = fullScreenView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+    leadingConstraint = fullScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+    widthConstraint = fullScreenView.widthAnchor.constraint(equalToConstant: startingFrame.width)
+    heightConstraint = fullScreenView.heightAnchor.constraint(equalToConstant: startingFrame.height)
     
     [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
     self.view.layoutIfNeeded()
     
-    aFSCView.layer.cornerRadius = 16
-        
+    fullScreenView.layer.cornerRadius = 16
+    
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
       
       self.topConstraint?.constant = 0
@@ -87,13 +99,17 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
       // For Xcode 11
       self.tabBarController?.tabBar.frame.origin.y += 100
       // Before Xcode 11
-//      self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
+      //      self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
+      
+      guard let cell = self.appFullScreenController.tableView.cellForRow(at: [0, 0]) as? AppFullScreenHeaderCell else { return }
+      cell.todayCell.topConstraint.constant = 48
+      cell.layoutIfNeeded()
     }, completion: nil)
   }
   
   // MARK: - UICollectionViewDelegateFlowLayout Methods
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return .init(width: view.frame.width - 64, height: 450)
+    return .init(width: view.frame.width - 64, height: TodayController.cellSize)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -105,7 +121,7 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   }
   
   // MARK: - Selector Methods
-  @objc func handleRemoveAFSCView() {
+  @objc func handleRemoveFullScreenView() {
     // Access startingFrame
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
       
@@ -124,10 +140,15 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
       self.tabBarController?.tabBar.frame.origin.y -= 100
       
       // Before Xcode 11
-//      self.tabBarController?.tabBar.transform = .identity
+      //      self.tabBarController?.tabBar.transform = .identity
+      
+      guard let cell = self.appFullScreenController.tableView.cellForRow(at: [0, 0]) as? AppFullScreenHeaderCell else { return }
+      cell.todayCell.topConstraint.constant = 24
+      cell.layoutIfNeeded()
     }, completion: { _ in
       self.appFullScreenController.view.removeFromSuperview()
       self.appFullScreenController.removeFromParent()
+      self.collectionView.isUserInteractionEnabled = true
     })
   }
 }
