@@ -12,7 +12,12 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   // MARK: - Instance Properties
   fileprivate let cellId = "CellId"
   var startingFrame: CGRect?
-  var appFullScreenController: UIViewController!
+  var appFullScreenController: AppFullScreenController!
+  
+  var topConstraint: NSLayoutConstraint?
+  var leadingConstraint: NSLayoutConstraint?
+  var widthConstraint: NSLayoutConstraint?
+  var heightConstraint: NSLayoutConstraint?
   
   // MARK: - View Life Cycle
   override func viewDidLoad() {
@@ -36,9 +41,14 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
     let appFullScreenController = AppFullScreenController()
-    let redView = appFullScreenController.view!
-    redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
-    view.addSubview(redView)
+    
+    appFullScreenController.dismissHandler = {
+      self.handleRemoveAFSCView()
+    }
+    
+    let aFSCView = appFullScreenController.view!
+    aFSCView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveAFSCView)))
+    view.addSubview(aFSCView)
         
     // This will let tableView of AppFullScreenController render itself
     // in order to show Header
@@ -51,14 +61,28 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     // Absolute Coordinates of Cell
     guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
     self.startingFrame = startingFrame
-    redView.frame = startingFrame
-    redView.layer.cornerRadius = 16
     
-    // We're using frames for animation, but
-    // frames aren't reliable enough for animations
+    // AutoLayout Constraint Animations
+    aFSCView.translatesAutoresizingMaskIntoConstraints = false
+    topConstraint = aFSCView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+    leadingConstraint = aFSCView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+    widthConstraint = aFSCView.widthAnchor.constraint(equalToConstant: startingFrame.width)
+    heightConstraint = aFSCView.heightAnchor.constraint(equalToConstant: startingFrame.height)
     
+    [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
+    self.view.layoutIfNeeded()
+    
+    aFSCView.layer.cornerRadius = 16
+        
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-      redView.frame = self.view.frame
+      
+      self.topConstraint?.constant = 0
+      self.leadingConstraint?.constant = 0
+      self.widthConstraint?.constant = self.view.frame.width
+      self.heightConstraint?.constant = self.view.frame.height
+      
+      // Start Animation
+      self.view.layoutIfNeeded()
       
       // For Xcode 11
       self.tabBarController?.tabBar.frame.origin.y += 100
@@ -81,10 +105,20 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   }
   
   // MARK: - Selector Methods
-  @objc func handleRemoveRedView(gesture: UITapGestureRecognizer) {
+  @objc func handleRemoveAFSCView() {
     // Access startingFrame
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-      gesture.view?.frame = self.startingFrame ?? .zero
+      
+      self.appFullScreenController.tableView.contentOffset = .zero
+      
+      guard let startingFrame = self.startingFrame else { return }
+      
+      self.topConstraint?.constant = startingFrame.origin.y
+      self.leadingConstraint?.constant = startingFrame.origin.x
+      self.widthConstraint?.constant = startingFrame.width
+      self.heightConstraint?.constant = startingFrame.height
+      
+      self.view.layoutIfNeeded()
       
       // For Xcode 11
       self.tabBarController?.tabBar.frame.origin.y -= 100
@@ -92,7 +126,7 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
       // Before Xcode 11
 //      self.tabBarController?.tabBar.transform = .identity
     }, completion: { _ in
-      gesture.view?.removeFromSuperview()
+      self.appFullScreenController.view.removeFromSuperview()
       self.appFullScreenController.removeFromParent()
     })
   }
