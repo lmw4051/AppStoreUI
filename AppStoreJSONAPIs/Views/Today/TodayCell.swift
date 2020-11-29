@@ -17,7 +17,8 @@ class TodayCell: BaseTodayCell {
       imageView.image = todayItem.image
       descriptionLabel.text = todayItem.description
       
-      backgroundColor = todayItem.backgroundColor
+      backgroundColor = todayItem.backgroundColor      
+      backgroundView?.backgroundColor = todayItem.backgroundColor
     }
   }
   
@@ -33,15 +34,16 @@ class TodayCell: BaseTodayCell {
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = .white
-    clipsToBounds = true
+    
     layer.cornerRadius = 16
     
     imageView.contentMode = .scaleAspectFill
+    imageView.clipsToBounds = true
     
     // To let imageView becomes smaller, otherwise the descriptionLabel can not show up
     let imageContainerView = UIView()
     imageContainerView.addSubview(imageView)
-    imageView.centerInSuperview(size: .init(width: 240, height: 240))
+    imageView.centerInSuperview(size: .init(width: 200, height: 200))
 
     let stackView = VerticalStackView(arrangedSubviews: [
       categoryLabel, titleLabel, imageContainerView, descriptionLabel
