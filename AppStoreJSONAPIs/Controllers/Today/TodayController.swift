@@ -12,6 +12,7 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   // MARK: - Instance Properties
   fileprivate let cellId = "CellId"
   var startingFrame: CGRect?
+  var appFullScreenController: UIViewController!
   
   // MARK: - View Life Cycle
   override func viewDidLoad() {
@@ -33,11 +34,18 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   
   // MARK: - UICollectioViewDelegate Methods
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let redView = UIView()
-    redView.backgroundColor = .red
+    
+    let appFullScreenController = AppFullScreenController()
+    let redView = appFullScreenController.view!
     redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
     view.addSubview(redView)
         
+    // This will let tableView of AppFullScreenController render itself
+    // in order to show Header
+    addChild(appFullScreenController)
+    
+    self.appFullScreenController = appFullScreenController
+    
     guard let cell = collectionView.cellForItem(at: indexPath) else { return }
     
     // Absolute Coordinates of Cell
@@ -46,8 +54,16 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     redView.frame = startingFrame
     redView.layer.cornerRadius = 16
     
+    // We're using frames for animation, but
+    // frames aren't reliable enough for animations
+    
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
       redView.frame = self.view.frame
+      
+      // For Xcode 11
+      self.tabBarController?.tabBar.frame.origin.y += 100
+      // Before Xcode 11
+//      self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
     }, completion: nil)
   }
   
@@ -69,8 +85,15 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     // Access startingFrame
     UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
       gesture.view?.frame = self.startingFrame ?? .zero
+      
+      // For Xcode 11
+      self.tabBarController?.tabBar.frame.origin.y -= 100
+      
+      // Before Xcode 11
+//      self.tabBarController?.tabBar.transform = .identity
     }, completion: { _ in
       gesture.view?.removeFromSuperview()
+      self.appFullScreenController.removeFromParent()
     })
   }
 }
