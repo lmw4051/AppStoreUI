@@ -16,17 +16,40 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
   
   fileprivate let spacing: CGFloat = 16
   
+  enum Mode {
+    case small, fullScreen
+  }
+  
+  fileprivate let mode: Mode
+  
   // MARK: - View Life Cycle
+  init(mode: Mode) {
+    self.mode = mode
+    super.init()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     collectionView.backgroundColor = .white
-    collectionView.isScrollEnabled = false
     
-    collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: cellId)        
+    if mode == .fullScreen {
+      
+    } else {
+      collectionView.isScrollEnabled = false
+    }
+        
+    collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: cellId)
   }
   
   // MARK: - UICollectioViewDataSource Methods
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if mode == .fullScreen {
+      return results.count
+    }
     return min(4, results.count)
   }
   
@@ -39,12 +62,22 @@ class TodayMultipleAppsController: BaseListController, UICollectionViewDelegateF
   // MARK: - UICollectionViewDelegateFlowLayout Methods
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-    let height: CGFloat = (view.frame.height - 3 * spacing) / 4
-    
+    let height: CGFloat = 68
+   
+    if mode == .fullScreen {
+      return .init(width: view.frame.width - 48, height: height)
+    }
     return .init(width: view.frame.width, height: height)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return spacing
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    if mode == .fullScreen {
+      return .init(top: 12, left: 24, bottom: 12, right: 24)
+    }
+    return .zero
   }
 }
