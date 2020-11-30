@@ -3,4 +3,4 @@ This is a repo for displaying vertical and horizontal scrolling user interface. 
 Programming Language: Swift
 Design Pattern: MVC
 
-[Imgur](https://i.imgur.com/eAADVnZ.gif)
+![Imgur](https://i.imgur.com/88Jtlj0.png)
