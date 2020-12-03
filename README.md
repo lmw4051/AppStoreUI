@@ -5,4 +5,4 @@ Design Pattern: MVC
 
 Dont't forget to call pod install after cloning!
 
-![image](https://github.com/lmw4051/AppStoreUI/blob/74d72098ce53d6e26fd4fe3099a82515dbfbefee/ezgif-1-e073d778b69b.gif)
+![image](https://github.com/lmw4051/AppStoreUI/blob/master/AppStoreUI.gif)
