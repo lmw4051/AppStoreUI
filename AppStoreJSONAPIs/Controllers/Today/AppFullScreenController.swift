@@ -13,6 +13,13 @@ class AppFullScreenController: UITableViewController {
   var dismissHandler: (() ->())?
   var todayItem: TodayItem?    
   
+  override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView.contentOffset.y < 0 {
+      scrollView.isScrollEnabled = false
+      scrollView.isScrollEnabled = true
+    }
+  }
+  
   // MARK: - View Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
