@@ -48,18 +48,18 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
   fileprivate func fetchData() {
     let dispatchGroup = DispatchGroup()
     
-    var topGrossingGroup: AppGroup?
-    var gamesGroup: AppGroup?
+    var topFreeGroup: AppGroup?
+    var topPaidGroup: AppGroup?
     
     dispatchGroup.enter()
-    Service.shared.fetchTopGrossing { (appGroup, error) in
-      topGrossingGroup = appGroup
+    Service.shared.fetchTopFree { (appGroup, error) in
+      topFreeGroup = appGroup
       dispatchGroup.leave()
     }
     
     dispatchGroup.enter()
-    Service.shared.fetchGames { (appGroup, error) in
-      gamesGroup = appGroup
+    Service.shared.fetchTopPaid { (appGroup, error) in
+      topPaidGroup = appGroup
       dispatchGroup.leave()
     }
     
@@ -68,9 +68,9 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
       self.activityIndicatorView.stopAnimating()
       
       self.items = [
-        TodayItem.init(category: "Daily List", title: topGrossingGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: topGrossingGroup?.feed.results ?? []),
+        TodayItem.init(category: "Daily List", title: topFreeGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: topFreeGroup?.feed.results ?? []),
         
-        TodayItem.init(category: "Daily List", title: gamesGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: gamesGroup?.feed.results ?? []),
+        TodayItem.init(category: "Daily List", title: topPaidGroup?.feed.title ?? "", image: #imageLiteral(resourceName: "garden"), description: "", backgroundColor: .white, cellType: .multiple, apps: topPaidGroup?.feed.results ?? []),
         
         TodayItem.init(category: "LIFE HACK", title: "Utilizing your Time", image: #imageLiteral(resourceName: "garden"), description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .white, cellType: .single, apps: []),
         TodayItem.init(category: "HOLIDAYS", title: "Travel on a Budget", image: #imageLiteral(resourceName: "holiday"), description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: #colorLiteral(red: 0.9838578105, green: 0.9588007331, blue: 0.7274674177, alpha: 1), cellType: .single, apps: []),

@@ -40,29 +40,21 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
   fileprivate func fetchData() {
     var group1: AppGroup?
     var group2: AppGroup?
-    var group3: AppGroup?
     
     let dispatchGroup = DispatchGroup()
     
     dispatchGroup.enter()
-    Service.shared.fetchGames { (appGroup, error) in
-      print("Done with games")
+    Service.shared.fetchTopPaid { (appGroup, error) in
+      print("Done with top paid")
       dispatchGroup.leave()
       group1 = appGroup
     }
     
     dispatchGroup.enter()
-    Service.shared.fetchTopGrossing { (appGroup, error) in
-      print("Done with top grossing")
+    Service.shared.fetchTopFree { (appGroup, error) in
+      print("Done with top free")
       dispatchGroup.leave()
       group2 = appGroup
-    }
-    
-    dispatchGroup.enter()
-    Service.shared.fetchAppGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/25/explicit.json") { (appGroup, error) in
-      dispatchGroup.leave()
-      print("Done with free games")
-      group3 = appGroup
     }
     
     dispatchGroup.enter()
@@ -82,9 +74,9 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
       if let group = group2 {
         self.groups.append(group)
       }
-      if let group = group3 {
-        self.groups.append(group)
-      }
+//      if let group = group3 {
+//        self.groups.append(group)
+//      }
       self.collectionView.reloadData()
     }
   }
@@ -116,7 +108,6 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
       controller.navigationItem.title = feedResult.name
       self?.navigationController?.pushViewController(controller, animated: true)
     }
-    
     return cell
   }
   

@@ -18,12 +18,12 @@ class Service {
     fetchGenericJSONData(urlString: urlString, completion: completion)
   }
   
-  func fetchTopGrossing(completion: @escaping (AppGroup?, Error?) -> ()) {
-    fetchAppGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/50/explicit.json", completion: completion)
+  func fetchTopFree(completion: @escaping (AppGroup?, Error?) -> ()) {
+    fetchAppGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/50/apps.json", completion: completion)
   }
   
-  func fetchGames(completion: @escaping (AppGroup?, Error?) -> ()) {
-    fetchAppGroup(urlString: "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json", completion: completion)
+  func fetchTopPaid(completion: @escaping (AppGroup?, Error?) -> ()) {
+    fetchAppGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/apps/top-paid/50/apps.json", completion: completion)
   }
   
   func fetchAppGroup(urlString: String, completion: @escaping (AppGroup?, Error?) -> Void) {
